@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: github-candidate-search
+    env: static
+    buildCommand: npm run build
+    staticPublishPath: ./dist
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=0, must-revalidate
+      - path: /*.css
+        name: Content-Type
+        value: text/css
+      - path: /*.js
+        name: Content-Type
+        value: application/javascript
+      - path: /*.json
+        name: Content-Type
+        value: application/json
+      - path: /*.svg
+        name: Content-Type
+        value: image/svg+xml
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
